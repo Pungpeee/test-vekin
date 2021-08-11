@@ -1,0 +1,29 @@
+version: '3.7'
+services:
+  details:
+    image: details
+    ports: 
+      - "8080:8080"
+  productpage:
+    image: productpage
+    ports: 
+      - "8082:80"
+  ratings:
+    image: ratings
+    ports:
+      - "8081:8080"
+    environment:
+      SERVICE_VERSION: v2
+      MONGO_DB_URL: mongodb://mongodb:27017/ratings
+  mongodb:
+    image: bitnami/mongodb:4.4.4-debian-10-r5
+    volumes:
+      - "./ratings/databases:/docker-entrypoint-initdb.d"
+  reviews:
+    image: reviews
+    ports: 
+      - "9080:9080"
+    environment:
+      RATINGS_SERVICE: http://ratings:8080
+      ENABLE_RATINGS: "true"
+      STAR_COLOR: red
