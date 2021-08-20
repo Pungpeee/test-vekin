@@ -1,0 +1,53 @@
+name: Bookinfo
+
+on:
+  push:
+    branches:  master 
+  pull_request:
+    branches:  master 
+
+jobs:
+  setup-code:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@473e4d8fe5dd94ee328fdfca9f8c9c7afc9dae5e
+      with:
+        ruby-version: 2.7
+        bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+      
+  build:
+     needs: setup-code
+  
+     runs-on: ubuntu-latest
+     steps: 
+     - uses: actions/checkout@v2
+     - name: login to ghcr get image
+       uses: docker/login-action@v1
+       with:
+          registry: ghcr.io
+          username: pungpeee
+          password: ${{ secrets.GITHUB_TOKEN }}
+     
+     - name: build images
+       uses: docker/build-push-action@v2
+       with:
+        file: ./Dockerfile
+        
+  deploy:
+      needs: build
+      runs-on: ubuntu-latest
+      steps:
+         - uses: appleboy/scp-action@master
+           name: Execute to ssh remote server
+           with:
+             host: ${{ secrets.HOST }}
+             username: pungpeee
+             password: ${{ secrets.PASSWORD }}
+             run: |
+               docker images
+               docker ps -a
+               
