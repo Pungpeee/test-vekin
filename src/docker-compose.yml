@@ -1,15 +1,15 @@
 version: '3.7'
 services:
   details:
-    image: details
+    image: ./details/Dockerfile
     ports: 
       - "8080:8080"
   productpage:
-    image: productpage
+    image: ./productpage/Dockerfile
     ports: 
       - "8082:80"
   ratings:
-    image: ratings
+    image: ./ratings/Dockerfile
     ports:
       - "8081:8080"
     environment:
@@ -20,7 +20,7 @@ services:
     volumes:
       - "./ratings/databases:/docker-entrypoint-initdb.d"
   reviews:
-    image: reviews
+    image: ./reviews/Dockerfile
     ports: 
       - "9080:9080"
     environment:
