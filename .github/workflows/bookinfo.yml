@@ -35,21 +35,19 @@ jobs:
      - name: build images
        uses: docker/build-push-action@v2
        with:
-        run: pwd
-#         file: ./Dockerfile
-#         tags: ghcr.io/pungpeee/bookinfo
+        tags: ghcr.io/pungpeee/bookinfo
         
-#   deploy:
-#       needs: build
-#       runs-on: ubuntu-latest
-#       steps:
-#          - uses: appleboy/scp-action@master
-#            name: Execute to ssh remote server
-#            with:
-#              host: ${{ secrets.HOST }}
-#              username: pungpeee
-#              password: ${{ secrets.PASSWORD }}
-#              run: |
-#                docker images
-#                docker ps -a
+  deploy:
+      needs: build
+      runs-on: ubuntu-latest
+      steps:
+         - uses: appleboy/scp-action@master
+           name: Execute to ssh remote server
+           with:
+             host: ${{ secrets.HOST }}
+             username: pungpeee
+             password: ${{ secrets.PASSWORD }}
+             run: |
+               docker images
+               docker ps -a
                
