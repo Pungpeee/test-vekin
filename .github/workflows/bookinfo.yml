@@ -1,4 +1,4 @@
-name: Django CI
+name: Bookinfo
 
 on:
   push:
@@ -13,8 +13,8 @@ jobs:
      runs-on: ubuntu-latest
      steps:
      
-#      - name: Set env
-#        run: echo "ENV_NAME=$( [ "$GITHUB_REF" == "refs/heads/master" ] && echo 'uat' || echo ${GITHUB_REF##*/} )" >> $GITHUB_ENV
+     - name: Set env
+       run: echo "ENV_NAME=$( [ "$GITHUB_REF" == "refs/heads/master" ] && echo 'uat' || echo ${GITHUB_REF##*/} )" >> $GITHUB_ENV
        
      - uses: actions/checkout@v2
      - name: login to ghcr get image
@@ -27,8 +27,8 @@ jobs:
      - name: build images
        uses: docker/build-push-action@v2
        with:
-        file: ./src/docker-compose.yml
-        tags: ghcr.io/pungpeee/bookinfo
+        file: ./Dockerfile
+        tags: ghcr.io/pungpeee/bookinfo:${{ env.ENV_NAME }}
         
   deploy:
       needs: build
