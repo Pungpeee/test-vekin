@@ -27,7 +27,6 @@ jobs:
      - name: build images
        uses: docker/build-push-action@v2
        with:
-        file: ./Dockerfile
         tags: ghcr.io/pungpeee/bookinfo:${{ env.ENV_NAME }}
         
   deploy:
