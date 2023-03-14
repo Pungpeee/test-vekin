@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  mynode:
+    build: .
+    restart: always
+    ports:
+      - 80:80
+    volumes:
+      - .:/code
