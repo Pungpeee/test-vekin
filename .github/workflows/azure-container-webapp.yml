@@ -74,13 +74,13 @@ jobs:
       - name: Build and push container registry azure
         uses: azure/docker-login@v1
         with:
-          login-server: contoso.azurecr.io
+          login-server: testappgateway.azurecr.io
           username: ${{ secrets.REGISTRY_USERNAME }}
           password: ${{ secrets.REGISTRY_PASSWORD }}
   
-      - run: |
-          docker build . -t contoso.azurecr.io/test-vekin:${{ github.sha }}
-          docker push contoso.azurecr.io/test-vekin:${{ github.sha }}
+#       - run: |
+#           docker build . -t contoso.azurecr.io/test-vekin:${{ github.sha }}
+#           docker push contoso.azurecr.io/test-vekin:${{ github.sha }}
 
   deploy:
     permissions:
@@ -101,4 +101,4 @@ jobs:
         with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-          images: 'ghcr.io/${{ env.REPO }}:${{ github.sha }}'
+          images: 'testappgateway.azurecr.io/${{ env.REPO }}:${{ github.sha }}'
