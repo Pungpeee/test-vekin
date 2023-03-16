@@ -79,8 +79,8 @@ jobs:
           password: ${{ secrets.REGISTRY_PASSWORD }}
   
       - run: |
-          docker build -t testappgateway.azurecr.io/test-vekin:${{ github.sha }} .
-          docker push testappgateway.azurecr.io/test-vekin:${{ github.sha }}
+          docker build -t testappgateway.azurecr.io/test-vekin:test .
+          docker push testappgateway.azurecr.io/test-vekin:test
 
   deploy:
     permissions:
@@ -101,4 +101,4 @@ jobs:
         with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-          images: 'testappgateway.azurecr.io/test-vekin:${{ github.sha }}'
+          images: 'testappgateway.azurecr.io/test-vekin:test'
