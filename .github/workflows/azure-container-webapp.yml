@@ -78,9 +78,9 @@ jobs:
           username: ${{ secrets.REGISTRY_USERNAME }}
           password: ${{ secrets.REGISTRY_PASSWORD }}
   
-#       - run: |
-#           docker build . -t contoso.azurecr.io/test-vekin:${{ github.sha }}
-#           docker push contoso.azurecr.io/test-vekin:${{ github.sha }}
+      - run: |
+          docker build . -t testappgateway.azurecr.io/test-vekin:${{ github.sha }}
+          docker push testappgateway.azurecr.io/test-vekin:${{ github.sha }}
 
   deploy:
     permissions:
