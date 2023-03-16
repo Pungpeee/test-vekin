@@ -81,6 +81,7 @@ jobs:
       - run: |
           docker build -t testappgateway.azurecr.io/test-vekin:test .
           docker push testappgateway.azurecr.io/test-vekin:test
+          docker run -d testappgateway.azurecr.io/test-vekin:test
 
   deploy:
     permissions:
