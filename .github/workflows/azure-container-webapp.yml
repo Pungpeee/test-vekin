@@ -27,7 +27,7 @@
 name: Build and deploy a container to an Azure Web App
 
 env:
-  AZURE_WEBAPP_NAME: test-vekin-cicd  # set this to the name of your Azure Web App
+  AZURE_WEBAPP_NAME: demosandbox # set this to the name of your Azure Web App
 
 on:
   push:
